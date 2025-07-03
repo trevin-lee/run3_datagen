@@ -1,0 +1,258 @@
+# =============================================================================
+# MDS-ML Project .gitignore
+# =============================================================================
+
+# Python
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.conda/
+conda-meta/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+.jupyter/
+*.nbconvert.py
+
+# IPython
+profile_default/
+ipython_config.py
+
+# CMSSW & ROOT
+# -----------------------------------------------------------------------------
+# ROOT files (data files - can be very large)
+*.root
+
+# CMSSW build artifacts
+CMSSW_*/lib/
+CMSSW_*/bin/
+CMSSW_*/test/
+CMSSW_*/tmp/
+CMSSW_*/logs/
+CMSSW_*/external/
+CMSSW_*/cfipython/
+CMSSW_*/python/
+*/.SCRAM/
+
+# C++ build artifacts
+*.o
+*.so
+*.a
+*.d
+*.pcm
+*.rootmap
+AutoDict_*
+*Dict.cxx
+*Dict.h
+
+# RazorRun analyzer specific
+run3_llp_analyzer/RazorRun
+run3_llp_analyzer/*.o
+run3_llp_analyzer/*.so
+run3_llp_analyzer/src/*.o
+run3_llp_analyzer/lib/
+run3_llp_analyzer/fastjet-install/
+
+# Data Files
+# -----------------------------------------------------------------------------
+# Raw data files
+*.dat
+*.raw
+*.bin
+
+# Processed data files
+data/output/
+data/processed/
+data/cache/
+data/temp/
+data/tmp/
+
+# File lists and configurations that might contain absolute paths
+data/file_lists/*.txt
+!data/file_lists/example.txt
+
+# Large analysis outputs
+*.pdf
+*.png
+*.jpg
+*.eps
+plots/
+figures/
+
+# Development & IDE
+# -----------------------------------------------------------------------------
+# VSCode
+.vscode/
+.history/
+
+# PyCharm
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Operating System
+# -----------------------------------------------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Logs and Temporary Files
+# -----------------------------------------------------------------------------
+*.log
+*.out
+*.err
+*.tmp
+*.temp
+logs/
+temp/
+tmp/
+
+# Security & Credentials
+# -----------------------------------------------------------------------------
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+*.crt
+credentials.json
+secrets.yaml
+config/secrets/
+
+# Analysis Specific
+# -----------------------------------------------------------------------------
+# CMSSW runtime files
+*.py.backup
+core.*
+.scramrc
+
+# Condor/Grid job files
+*.condor
+*.jdl
+*.stdout
+*.stderr
+*.job
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Large output files
+ntuples/
+histograms/
+*.pickle
+*.pkl
+
+# Documentation builds
+docs/_build/
+docs/build/
+site/
