@@ -1,0 +1,6 @@
+<tool name="py3-cms-tfaot" version="1.0.1-c424942332f34ad70cd315b368d63d83">
+  <client>
+    <environment name="PY3_CMS_TFAOT_BASE" default="/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-cms-tfaot/1.0.1-c424942332f34ad70cd315b368d63d83"/>
+  </client>
+  <runtime name="PATH" value="$PY3_CMS_TFAOT_BASE/bin" type="path"/>
+</tool>

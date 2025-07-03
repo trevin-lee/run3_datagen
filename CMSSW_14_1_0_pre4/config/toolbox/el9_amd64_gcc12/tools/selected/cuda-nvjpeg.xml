@@ -1,0 +1,5 @@
+<tool name="cuda-nvjpeg" version="12.4.1-8b491273511f117bf853a3f82dc2d34f">
+  <info url="https://docs.nvidia.com/cuda/nvjpeg/index.html"/>
+  <use name="cuda"/>
+  <lib name="nvjpeg"/>
+</tool>
