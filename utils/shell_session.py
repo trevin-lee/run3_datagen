@@ -74,9 +74,8 @@ class PersistentShellSession:
             # Build the full command with all setup
             script_lines = []
             
-            # Add shebang and error handling
+            # Add shebang
             script_lines.append("#!/bin/bash")
-            script_lines.append("set -e")  # Exit on error
             
             # Change to working directory
             script_lines.append(f"cd {shlex.quote(self.current_directory)}")
@@ -113,6 +112,7 @@ class PersistentShellSession:
             )
             
             output = result.stdout.strip()
+            error_output = result.stderr.strip()
             
             # If this was a cd command, update our current directory
             if command.strip().startswith("cd ") and result.returncode == 0:
@@ -141,12 +141,12 @@ class PersistentShellSession:
                         print(f"[Shell] {line}")
             
             # Also capture stderr if there was an error
-            if result.returncode != 0 and result.stderr:
+            if result.returncode != 0 and error_output:
                 if self.verbose:
-                    for line in result.stderr.strip().split('\n'):
+                    for line in error_output.split('\n'):
                         if line.strip():
                             print(f"[Shell] ERROR: {line}")
-                output = output + "\n" + result.stderr if output else result.stderr
+                output = output + "\n" + error_output if output else error_output
             
             return True, output, result.returncode
             

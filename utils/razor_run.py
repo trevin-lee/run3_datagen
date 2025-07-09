@@ -5,6 +5,10 @@ from .shell_session import PersistentShellSession
 
 
 class RazorRunner:
+    """
+    Runner for the RazorRun analysis pipeline.
+    Handles execution of the compiled analyzer executables.
+    """
     
     def __init__(self, shell: PersistentShellSession, analyzer_name: str):
         self.shell = shell
@@ -18,50 +22,20 @@ class RazorRunner:
         is_data: bool,
     ) -> bool:
 
-        # Build the RazorRun command
-        cmd_parts = ["./RazorRun", input_file, self.analyzer_name]
+        self.shell.run_command("pwd")
         
-        if output_file:
-            cmd_parts.append(f"-f={output_file}")
-        if is_data:
-            cmd_parts.append("-d")
-            
-        razor_cmd = " ".join(cmd_parts)
+        print("[RazorRun] Running RazorRun...")
+        setup_commands = [
+            "cd run3_llp_analyzer",
+            f"./RazorRun {input_file} {self.analyzer_name} -f={output_file} -d={is_data}"
+        ]
         
-        # Check if we're already in run3_llp_analyzer directory
-        success, output, exit_code = self.shell.run_command("pwd")
-        current_dir = output.strip() if success else ""
-        
-        if not current_dir.endswith("/run3_llp_analyzer"):
-            success, output, exit_code = self.shell.run_command("cd run3_llp_analyzer")
+        for cmd in setup_commands:
+            success, output, exit_code = self.shell.run_command(cmd)
             if exit_code != 0:
-                print(f"[RazorRun] ERROR: Failed to change to run3_llp_analyzer directory")
-                print(f"Output:\n{output}")
+                print(f"[RazorRun] ERROR: Environment setup failed: {cmd}")
+                if output:
+                    print(f"Output:\n{output}")
                 return False
         
-        # Set CMSSW_BASE - determine the path based on current location
-        success, output, exit_code = self.shell.run_command("pwd")
-        current_dir = output.strip() if success else ""
-        
-        if "/CMSSW_14_1_0_pre4/src/run3_llp_analyzer" in current_dir:
-            # We're in the right place, set CMSSW_BASE to grandparent
-            cmssw_base_cmd = "export CMSSW_BASE=$(realpath ../..)"
-        else:
-            # Fallback - try relative path
-            cmssw_base_cmd = "export CMSSW_BASE=$(realpath ../..)"
-        
-        success, output, exit_code = self.shell.run_command(cmssw_base_cmd)
-        if exit_code != 0:
-            print(f"[RazorRun] ERROR: Failed to set CMSSW_BASE")
-            print(f"Output:\n{output}")
-            return False
-
-        print(f"[RazorRun] Executing: {razor_cmd}")
-        success, output, exit_code = self.shell.run_command(razor_cmd)
-        if exit_code != 0:
-            print(f"[RazorRun] ERROR: Command failed: {razor_cmd}")
-            print(f"Output:\n{output}")
-            return False
-
-        print("[RazorRun] Analysis completed successfully")
         return True
