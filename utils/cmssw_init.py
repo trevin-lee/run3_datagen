@@ -4,7 +4,7 @@ from .shell_session import PersistentShellSession
 class CMSSWInitializer:
     """Initializes a CMSSW environment in a persistent shell session."""
     
-    def __init__(self, shell: PersistentShellSession, project_root: string):
+    def __init__(self, shell: PersistentShellSession, project_root: str):
         self.shell = shell
         self.project_root = project_root
 

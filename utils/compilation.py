@@ -35,7 +35,7 @@ class AnalyzerCompiler:
         commands = [
             "cd run3_llp_analyzer",
             "make clean",
-            "make"
+            "make -j 8"
         ]
         
         for cmd in commands:

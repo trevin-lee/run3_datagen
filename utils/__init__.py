@@ -27,6 +27,7 @@ from .cmssw_init import CMSSWInitializer
 from .compilation import AnalyzerCompiler
 from .razor_run import RazorRunner
 from .shell_session import PersistentShellSession
+from .analytics import analyze_root_file
 
 # Version info
 __version__ = "1.0.0"
@@ -45,6 +46,9 @@ __all__ = [
     
     # Shell session management
     'PersistentShellSession',
+    
+    # Analytics
+    'analyze_root_file',
     
     # Package info
     '__version__',
