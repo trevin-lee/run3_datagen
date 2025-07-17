@@ -1,0 +1,5 @@
+<tool name="lwtnn_x86-64-v3" version="2.14.1-79359674a9e8c3089dc7bc9cce079f93">
+  <client>
+    <environment name="X86_64_V3_LIBDIR" default="/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/lwtnn_x86-64-v3/2.14.1-79359674a9e8c3089dc7bc9cce079f93/lib"/>
+  </client>
+</tool>

@@ -1,0 +1,19 @@
+{
+  "FASTJET_CONTRIB_BASE": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/fastjet-contrib/1.051-afd609f10b5f81984bb8b0a86a7935ee",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/fastjet-contrib/1.051-afd609f10b5f81984bb8b0a86a7935ee/include"
+  ],
+  "LIB": [
+    "fastjetcontribfragile"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/fastjet-contrib/1.051-afd609f10b5f81984bb8b0a86a7935ee/lib"
+  ],
+  "TOOLNAME": "fastjet-contrib",
+  "TOOLVERSION": "1.051-afd609f10b5f81984bb8b0a86a7935ee",
+  "VARIABLES": [
+    "FASTJET_CONTRIB_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

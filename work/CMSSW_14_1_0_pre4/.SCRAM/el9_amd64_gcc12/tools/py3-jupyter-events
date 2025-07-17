@@ -1,0 +1,13 @@
+{
+  "PY3_JUPYTER_EVENTS_BASE": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-jupyter-events/0.10.0-1175dcbb0c418ea65473b4b5e905bf39",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-jupyter-events/0.10.0-1175dcbb0c418ea65473b4b5e905bf39/bin"
+    ]
+  },
+  "TOOLNAME": "py3-jupyter-events",
+  "TOOLVERSION": "0.10.0-1175dcbb0c418ea65473b4b5e905bf39",
+  "VARIABLES": [
+    "PY3_JUPYTER_EVENTS_BASE"
+  ]
+}

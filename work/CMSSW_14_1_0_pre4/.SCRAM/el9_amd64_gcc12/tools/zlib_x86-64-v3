@@ -1,0 +1,8 @@
+{
+  "TOOLNAME": "zlib_x86-64-v3",
+  "TOOLVERSION": "1.2.11-74f056c623df0b5139200a06280f4f3f",
+  "VARIABLES": [
+    "X86_64_V3_LIBDIR"
+  ],
+  "X86_64_V3_LIBDIR": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/zlib_x86-64-v3/1.2.11-74f056c623df0b5139200a06280f4f3f/lib"
+}

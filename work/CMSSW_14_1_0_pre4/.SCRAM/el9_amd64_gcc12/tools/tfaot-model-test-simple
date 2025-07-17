@@ -1,0 +1,26 @@
+{
+  "FLAGS": {
+    "LDFLAGS": [
+      "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/tfaot-model-test-simple/1.0.1-4593a8816f688e54be28b5d1f49c913e/lib/test_simple_bs1.o",
+      "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/tfaot-model-test-simple/1.0.1-4593a8816f688e54be28b5d1f49c913e/lib/test_simple_bs2.o",
+      "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/tfaot-model-test-simple/1.0.1-4593a8816f688e54be28b5d1f49c913e/lib/test_simple_bs4.o"
+    ]
+  },
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/tfaot-model-test-simple/1.0.1-4593a8816f688e54be28b5d1f49c913e/include"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/tfaot-model-test-simple/1.0.1-4593a8816f688e54be28b5d1f49c913e/lib"
+  ],
+  "TFAOT_MODEL_TEST_SIMPLE_BASE": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/tfaot-model-test-simple/1.0.1-4593a8816f688e54be28b5d1f49c913e",
+  "TOOLNAME": "tfaot-model-test-simple",
+  "TOOLVERSION": "1.0.0",
+  "USE": [
+    "tensorflow-xla-runtime"
+  ],
+  "VARIABLES": [
+    "TFAOT_MODEL_TEST_SIMPLE_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "LIB": [
+    "ROOTDataFrame"
+  ],
+  "TOOLNAME": "rootdataframe",
+  "TOOLVERSION": "6.30.07-8b1a11e1ef0e074fdfd44e162b27e71c",
+  "USE": [
+    "rootcore",
+    "rootgraphics",
+    "roothistmatrix",
+    "rootrio",
+    "rootvecops"
+  ]
+}

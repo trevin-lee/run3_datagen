@@ -1,0 +1,13 @@
+{
+  "PY3_MESON_BASE": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-meson/1.4.0-2a9fd41bb30695578243fadf55483657",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-meson/1.4.0-2a9fd41bb30695578243fadf55483657/bin"
+    ]
+  },
+  "TOOLNAME": "py3-meson",
+  "TOOLVERSION": "1.4.0-2a9fd41bb30695578243fadf55483657",
+  "VARIABLES": [
+    "PY3_MESON_BASE"
+  ]
+}

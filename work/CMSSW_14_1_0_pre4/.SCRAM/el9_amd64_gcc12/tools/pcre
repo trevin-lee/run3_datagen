@@ -1,0 +1,29 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/pcre/8.43-e34796d17981e9b6d174328c69446455/include"
+  ],
+  "LIB": [
+    "pcre"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/pcre/8.43-e34796d17981e9b6d174328c69446455/lib"
+  ],
+  "PCRE_BASE": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/pcre/8.43-e34796d17981e9b6d174328c69446455",
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/pcre/8.43-e34796d17981e9b6d174328c69446455/include"
+    ]
+  },
+  "TOOLNAME": "pcre",
+  "TOOLVERSION": "8.43-e34796d17981e9b6d174328c69446455",
+  "USE": [
+    "root_cxxdefaults",
+    "zlib",
+    "bz2lib"
+  ],
+  "VARIABLES": [
+    "PCRE_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

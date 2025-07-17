@@ -1,0 +1,13 @@
+{
+  "PY3_JSON5_BASE": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-json5/0.9.25-3ab5c94f6351e1cf51b26f92d26f9616",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-json5/0.9.25-3ab5c94f6351e1cf51b26f92d26f9616/bin"
+    ]
+  },
+  "TOOLNAME": "py3-json5",
+  "TOOLVERSION": "0.9.25-3ab5c94f6351e1cf51b26f92d26f9616",
+  "VARIABLES": [
+    "PY3_JSON5_BASE"
+  ]
+}

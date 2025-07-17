@@ -1,0 +1,13 @@
+{
+  "PY3_TABLES_BASE": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-tables/3.8.0-54d6af5e8ee49f2d742bcaedb697e16c",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-tables/3.8.0-54d6af5e8ee49f2d742bcaedb697e16c/bin"
+    ]
+  },
+  "TOOLNAME": "py3-tables",
+  "TOOLVERSION": "3.8.0-54d6af5e8ee49f2d742bcaedb697e16c",
+  "VARIABLES": [
+    "PY3_TABLES_BASE"
+  ]
+}

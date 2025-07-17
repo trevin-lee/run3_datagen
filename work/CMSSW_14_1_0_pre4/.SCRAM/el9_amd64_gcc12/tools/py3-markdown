@@ -1,0 +1,13 @@
+{
+  "PY3_MARKDOWN_BASE": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-Markdown/3.6-442823002e47d150f55e95b6b3c04023",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-Markdown/3.6-442823002e47d150f55e95b6b3c04023/bin"
+    ]
+  },
+  "TOOLNAME": "py3-markdown",
+  "TOOLVERSION": "3.6-442823002e47d150f55e95b6b3c04023",
+  "VARIABLES": [
+    "PY3_MARKDOWN_BASE"
+  ]
+}

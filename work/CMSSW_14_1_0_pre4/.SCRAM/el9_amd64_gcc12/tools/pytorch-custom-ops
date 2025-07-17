@@ -1,0 +1,10 @@
+{
+  "TOOLNAME": "pytorch-custom-ops",
+  "TOOLVERSION": "1.0",
+  "USE": [
+    "pytorch",
+    "pytorch-scatter",
+    "pytorch-cluster",
+    "pytorch-sparse"
+  ]
+}

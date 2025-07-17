@@ -1,0 +1,12 @@
+{
+  "L1METML_BASE": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/L1METML/1.0.1-d067a2c0ef886b9b7afe0633f1a4c833",
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/L1METML/1.0.1-d067a2c0ef886b9b7afe0633f1a4c833/lib64"
+  ],
+  "TOOLNAME": "l1metml",
+  "TOOLVERSION": "1.0.1-d067a2c0ef886b9b7afe0633f1a4c833",
+  "VARIABLES": [
+    "L1METML_BASE",
+    "LIBDIR"
+  ]
+}

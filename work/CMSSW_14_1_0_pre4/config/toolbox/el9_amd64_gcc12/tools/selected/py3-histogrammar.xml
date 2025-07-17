@@ -1,0 +1,6 @@
+<tool name="py3-histogrammar" version="1.0.33-a2ce5b11f3da4778f5d577b0fbadbaad">
+  <client>
+    <environment name="PY3_HISTOGRAMMAR_BASE" default="/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-histogrammar/1.0.33-a2ce5b11f3da4778f5d577b0fbadbaad"/>
+  </client>
+  <runtime name="PATH" value="$PY3_HISTOGRAMMAR_BASE/bin" type="path"/>
+</tool>

@@ -1,0 +1,12 @@
+{
+  "CUDA_COMPATIBLE_RUNTIME_BASE": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/cuda-compatible-runtime/1.0-f7b497d4301a4ee8f690e95356c3e2d3",
+  "TOOLNAME": "cuda-compatible-runtime",
+  "TOOLVERSION": "1.0-f7b497d4301a4ee8f690e95356c3e2d3",
+  "USE": [
+    "cuda",
+    "cuda-stubs"
+  ],
+  "VARIABLES": [
+    "CUDA_COMPATIBLE_RUNTIME_BASE"
+  ]
+}

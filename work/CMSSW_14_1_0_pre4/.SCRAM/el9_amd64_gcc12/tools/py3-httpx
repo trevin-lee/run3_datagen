@@ -1,0 +1,13 @@
+{
+  "PY3_HTTPX_BASE": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-httpx/0.27.0-b3cb6861d4287287f163917b6877c531",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/py3-httpx/0.27.0-b3cb6861d4287287f163917b6877c531/bin"
+    ]
+  },
+  "TOOLNAME": "py3-httpx",
+  "TOOLVERSION": "0.27.0-b3cb6861d4287287f163917b6877c531",
+  "VARIABLES": [
+    "PY3_HTTPX_BASE"
+  ]
+}

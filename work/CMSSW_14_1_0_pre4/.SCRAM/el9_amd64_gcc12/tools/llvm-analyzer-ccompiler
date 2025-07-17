@@ -1,0 +1,14 @@
+{
+  "CC": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/llvm/17.0.3-c63837ad0d3b09642e66207455f39fed/bin/ccc-analyzer",
+  "LLVM_ANALYZER_CCOMPILER_BASE": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/llvm/17.0.3-c63837ad0d3b09642e66207455f39fed",
+  "SCRAM_COMPILER": 1,
+  "TOOLNAME": "llvm-analyzer-ccompiler",
+  "TOOLVERSION": "17.0.3-c63837ad0d3b09642e66207455f39fed",
+  "USE": [
+    "llvm-ccompiler"
+  ],
+  "VARIABLES": [
+    "LLVM_ANALYZER_CCOMPILER_BASE",
+    "CC"
+  ]
+}

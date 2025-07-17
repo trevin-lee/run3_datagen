@@ -1,0 +1,8 @@
+{
+  "TOOLNAME": "rivet_x86-64-v3",
+  "TOOLVERSION": "3.1.10-80d9e69033b1d0d86c4992a2155014c0",
+  "VARIABLES": [
+    "X86_64_V3_LIBDIR"
+  ],
+  "X86_64_V3_LIBDIR": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/rivet_x86-64-v3/3.1.10-80d9e69033b1d0d86c4992a2155014c0/lib"
+}

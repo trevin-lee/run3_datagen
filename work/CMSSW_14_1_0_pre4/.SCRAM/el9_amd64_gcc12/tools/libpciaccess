@@ -1,0 +1,19 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/libpciaccess/0.16-7bc5e8d81bd9ed21aa0bba50ac5f4a8a/include"
+  ],
+  "LIB": [
+    "libpciaccess"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/libpciaccess/0.16-7bc5e8d81bd9ed21aa0bba50ac5f4a8a/lib"
+  ],
+  "LIBPCIACCESS_BASE": "/cvmfs/cms.cern.ch/el9_amd64_gcc12/external/libpciaccess/0.16-7bc5e8d81bd9ed21aa0bba50ac5f4a8a",
+  "TOOLNAME": "libpciaccess",
+  "TOOLVERSION": "0.16-7bc5e8d81bd9ed21aa0bba50ac5f4a8a",
+  "VARIABLES": [
+    "LIBPCIACCESS_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

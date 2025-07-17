@@ -1,0 +1,5 @@
+<tool name="boost_iostreams" version="1.80.0-87b5de10acd2f2c8a325345ad058b814">
+  <info url="http://www.boost.org"/>
+  <lib name="boost_iostreams"/>
+  <use name="boost"/>
+</tool>
