@@ -3,6 +3,14 @@
 # Setup CMSSW Release
 # Creates new CMSSW release or uses existing one
 
+# Get the project directory to source configuration
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+# Load configuration if variables are not set
+if [[ -z "$CMSSW_VERSION" || -z "$PROJECT_DIR" ]]; then
+    export CMSSW_VERSION="CMSSW_14_1_0_pre4"
+fi
+
 USE_EXISTING=false
 
 # Parse arguments
@@ -18,7 +26,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-cd "${WORK_DIR}"
+cd "${PROJECT_DIR}"
 
 if [[ "$USE_EXISTING" == "true" || -d "${CMSSW_VERSION}" ]]; then
     if [[ -d "${CMSSW_VERSION}" ]]; then

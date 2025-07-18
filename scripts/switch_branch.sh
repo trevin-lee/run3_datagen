@@ -3,12 +3,42 @@
 # Switch Git Branch and Rebuild
 # Switches to target branch and rebuilds the analyzer
 
+# Get the project directory to source configuration
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+# Source the main script to get environment variables if they're not set
+if [[ -z "$TARGET_BRANCH" || -z "$CMSSW_BASE" || -z "$REPO_DIR" ]]; then
+    echo "Loading configuration from main script..."
+    # Extract variables from main.sh without running the full script
+    export CMSSW_VERSION="CMSSW_14_1_0_pre4"
+    export CMSSW_BASE="${PROJECT_DIR}/${CMSSW_VERSION}"
+    export REPO_DIR="run3_llp_analyzer"
+    export TARGET_BRANCH="add-rechit-data"
+fi
+
+echo "=== Branch Switch Script Debug ==="
+echo "Configuration:"
+echo "  TARGET_BRANCH: $TARGET_BRANCH"
+echo "  CMSSW_BASE: $CMSSW_BASE"
+echo "  REPO_DIR: $REPO_DIR"
+echo "  Full path: ${CMSSW_BASE}/src/${REPO_DIR}"
+echo ""
+
+# Debug: Check if target directory exists
+if [[ ! -d "${CMSSW_BASE}/src/${REPO_DIR}" ]]; then
+    echo "❌ ERROR: Repository directory does not exist: ${CMSSW_BASE}/src/${REPO_DIR}"
+    echo "Available directories in ${CMSSW_BASE}/src/:"
+    ls -la "${CMSSW_BASE}/src/" 2>/dev/null || echo "  Cannot list directory"
+    exit 1
+fi
+
 # Navigate to repository directory
 cd "${CMSSW_BASE}/src/${REPO_DIR}"
 
 # Verify we're in the right place
 if [[ ! -d ".git" ]]; then
     echo "❌ Not in a git repository"
+    echo "Current directory: $(pwd)"
     exit 1
 fi
 

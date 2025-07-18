@@ -90,10 +90,10 @@ export ANALYSIS_TAG="Summer24"  # Critical: prevents segmentation fault
 ```
 mds-ml/
 ├── main.sh                    # Main orchestration script
-├── work/                      # Working directory (created automatically)
-│   └── CMSSW_14_1_0_pre4/    # CMSSW release
-│       └── src/
-│           └── run3_llp_analyzer/  # Cloned repository
+├── CMSSW_14_1_0_pre4/        # CMSSW release (created in main directory)
+│   └── src/
+│       └── run3_llp_analyzer/  # Cloned repository
+├── data/                      # Input files
 └── scripts/
     ├── setup_environment.sh   # Environment setup
     ├── setup_cmssw.sh        # CMSSW release setup
@@ -165,4 +165,19 @@ export ANALYSIS_TAG="Summer24"  # For Hidden Valley 2024 samples
 
 **Supported Analysis Tags**: Summer22, Summer22EE, Summer23, Summer23BPix, Summer24
 
-This fix ensures proper initialization of JEC uncertainty objects and produces the expected 71KB output files with ~200 events. 
+This fix ensures proper initialization of JEC uncertainty objects and produces the expected 71KB output files with ~200 events.
+
+### RazorRun Script Fix (Missing MET Trigger Files)
+
+**Issue**: The `RazorRun` script was missing MET trigger efficiency file copies, causing:
+- `file METTriggerEff_Summer24.root does not exist` errors
+- Segmentation fault in `loadMetTrigger_Summer24()`
+- Analyzer crashing during initialization
+
+**Solution**: Added missing MET trigger file copies to `RazorRun` script:
+```bash
+cp ${CMSSW_BASE}/src/run3_llp_analyzer/data/trigger/METTriggerEff_Summer24.root .
+# (and all other Summer22/23/24 variants)
+```
+
+The script now copies all required data files for proper analyzer operation. 

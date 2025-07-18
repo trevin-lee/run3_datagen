@@ -18,11 +18,10 @@ set -e  # Exit on any error
 
 # Project paths
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORK_DIR="${PROJECT_DIR}/work"
 
 # CMSSW configuration
 export CMSSW_VERSION="CMSSW_14_1_0_pre4"
-export CMSSW_BASE="${WORK_DIR}/${CMSSW_VERSION}"
+export CMSSW_BASE="${PROJECT_DIR}/${CMSSW_VERSION}"
 export REPO_DIR="run3_llp_analyzer"
 export REPO_URL="git@github.com:cms-lpc-llp/run3_llp_analyzer.git"
 
@@ -119,7 +118,7 @@ done
 
 echo "=== MDS-ML CMS LLP Analyzer Pipeline ==="
 echo "Project Directory: ${PROJECT_DIR}"
-echo "Work Directory: ${WORK_DIR}"
+echo "CMSSW Base: ${CMSSW_BASE}"
 echo "CMSSW Version: ${CMSSW_VERSION}"
 echo "Target Branch: ${TARGET_BRANCH}"
 echo "Analyzer: ${ANALYZER_NAME}"
@@ -132,16 +131,18 @@ echo "  Skip Branch: ${SKIP_BRANCH}"
 echo "  Run Analyzer: ${RUN_ANALYZER}"
 echo ""
 
-# Create work directory
-mkdir -p "${WORK_DIR}"
+# No work directory needed - CMSSW release goes directly in main directory
 
 # Stage 1: Setup Environment
 echo "=== Stage 1: Setting up Environment ==="
+export PROJECT_DIR
 source "${PROJECT_DIR}/scripts/setup_environment.sh"
 
 # Stage 2: Setup CMSSW (with cleanup if not keeping)
 if [[ "$KEEP_CMSSW" == "true" && -d "${CMSSW_BASE}" ]]; then
     echo "=== Stage 2: Using existing CMSSW release ==="
+    export CMSSW_VERSION
+    export PROJECT_DIR
     source "${PROJECT_DIR}/scripts/setup_cmssw.sh" --use-existing
 else
     echo "=== Stage 2: Creating fresh CMSSW release ==="
@@ -150,6 +151,8 @@ else
         echo "Removing existing CMSSW release: ${CMSSW_BASE}"
         rm -rf "${CMSSW_BASE}"
     fi
+    export CMSSW_VERSION
+    export PROJECT_DIR
     source "${PROJECT_DIR}/scripts/setup_cmssw.sh"
 fi
 
@@ -181,9 +184,28 @@ else
 fi
 
 # Stage 4: Optional Branch Switch
+echo "=== Stage 4 Debug ==="
+echo "  SKIP_BRANCH: '$SKIP_BRANCH'"
+echo "  TARGET_BRANCH: '$TARGET_BRANCH'"
+echo "  Condition result: SKIP_BRANCH='$SKIP_BRANCH' == 'false' && TARGET_BRANCH='$TARGET_BRANCH' != ''"
+
 if [[ "$SKIP_BRANCH" == "false" && -n "$TARGET_BRANCH" ]]; then
     echo "=== Stage 4: Switching to branch ${TARGET_BRANCH} ==="
+    
+    # Ensure environment variables are exported for the switch script
+    export TARGET_BRANCH
+    export CMSSW_BASE
+    export REPO_DIR
+    
     source "${PROJECT_DIR}/scripts/switch_branch.sh"
+else
+    echo "=== Stage 4: Skipping branch switch ==="
+    if [[ "$SKIP_BRANCH" != "false" ]]; then
+        echo "  Reason: SKIP_BRANCH is not 'false' (value: '$SKIP_BRANCH')"
+    fi
+    if [[ -z "$TARGET_BRANCH" ]]; then
+        echo "  Reason: TARGET_BRANCH is empty or not set"
+    fi
 fi
 
 # Stage 5: Run Analyzer
