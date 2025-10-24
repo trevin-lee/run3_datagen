@@ -1,219 +1,170 @@
 #!/bin/bash
 
-# MDS-ML CMS LLP Analyzer Pipeline
-# Automated setup and execution script for run3_llp_analyzer
-# 
-# By default, this script starts completely from scratch:
-# - Removes and recreates CMSSW release
-# - Recompiles all code
-# - Switches to target branch
-# 
-# Use --keep-* flags to preserve existing work
+# MDS-ML CMS LLP Analyzer Pipeline (No-Flags Version)
+# Configure booleans and settings below, then run this script.
 
-set -e  # Exit on any error
+set -e
 
 # =============================================================================
-# CONFIGURATION
+# USER SETTINGS (edit these)
 # =============================================================================
 
-# Project paths
-PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Steps to run
+# Stage 1 (Env) always runs
+DO_CMSSW_CREATE=true  # Stage 2: If true, recreate CMSSW; if false, use existing (or create if missing)
+DO_CLONE=true         # Stage 3: Fresh clone (deletes existing if true); otherwise use existing or clone if missing
+DO_BRANCH=false        # Stage 4: Switch to target branch
+DO_BUILD=false        # Stage 5: Build analyzer
+DO_RUN=false           # Stage 6: Run analyzer
 
-# CMSSW configuration
+# Analysis configuration
 export CMSSW_VERSION="CMSSW_14_1_0_pre4"
+export TARGET_BRANCH="main"
+export ANALYZER_NAME="llp_MuonSystem_CA_merge"
+export INPUT_LIST="/main/run3_datagen/data/samples/input.txt"              # Relative to project dir unless absolute
+export OUTPUT_FILE="data/MuonSystem_Tree.root"  # Relative to project dir unless absolute
+export DATA_FLAG="-d=no"                         # "-d=no" for MC, "-d=yes" for data
+export ANALYSIS_TAG="Summer24"
+
+# Optional environment paths (leave empty to use CMSSW's ROOT)
+export ROOT_SETUP=""
+
+# =============================================================================
+# CONSTANTS
+# =============================================================================
+
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export PROJECT_DIR
 export CMSSW_BASE="${PROJECT_DIR}/${CMSSW_VERSION}"
 export REPO_DIR="run3_llp_analyzer"
 export REPO_URL="git@github.com:cms-lpc-llp/run3_llp_analyzer.git"
 
-# Analysis configuration
-export TARGET_BRANCH="add-rechit-data"        # Branch to switch to after initial build
-export ANALYZER_NAME="llp_MuonSystem_CA_mdsnano"
-export INPUT_LIST="data/input.txt"
-export OUTPUT_FILE="data/MuonSystem_Tree.root"
-export DATA_FLAG="-d=no"  # no for MC, yes for data
-export ANALYSIS_TAG="Summer24"  # Summer24 tag for Hidden Valley samples (2024)
-
-# ROOT and CMSSW paths (adjust if needed)
-export ROOT_SETUP_SCRIPT="/cvmfs/sft.cern.ch/lcg/app/releases/ROOT/6.36.00/x86_64-almalinux9.5-gcc115-opt/bin/thisroot.sh"
-export CMSSW_SETUP_SCRIPT="/cvmfs/cms.cern.ch/cmsset_default.sh"
+# Derived paths
+REPO_PATH="${CMSSW_BASE}/src/${REPO_DIR}"
 
 # =============================================================================
-# COMMAND LINE ARGUMENTS
+# PRINT CONFIG
 # =============================================================================
 
-# Default behavior: rebuild everything from scratch
-KEEP_CMSSW=false
-KEEP_CLONE=false
-KEEP_BUILD=false
-SKIP_BRANCH=false
-RUN_ANALYZER=true
-
-print_usage() {
-    echo "Usage: $0 [OPTIONS]"
-    echo ""
-    echo "By default, this script rebuilds everything from scratch for reliability."
-    echo "Use --keep-* options to preserve existing work:"
-    echo ""
-    echo "Options:"
-    echo "  --keep-cmssw        Keep existing CMSSW release (don't recreate)"
-    echo "  --keep-clone        Keep existing repository clone (don't reclone)"
-    echo "  --keep-build        Keep existing build (don't recompile)"
-    echo "  --skip-branch       Skip switching to target branch"
-    echo "  --no-run           Don't run the analyzer, just setup"
-    echo "  -h, --help         Show this help message"
-    echo ""
-    echo "Environment variables you can override:"
-    echo "  CMSSW_VERSION       Default: ${CMSSW_VERSION}"
-    echo "  TARGET_BRANCH       Default: ${TARGET_BRANCH}"
-    echo "  ANALYZER_NAME       Default: ${ANALYZER_NAME}"
-    echo "  INPUT_LIST          Default: ${INPUT_LIST}"
-    echo "  OUTPUT_FILE         Default: ${OUTPUT_FILE}"
-    echo "  ANALYSIS_TAG        Default: ${ANALYSIS_TAG}"
-    echo ""
-    echo "Examples:"
-    echo "  $0                           # Full rebuild from scratch"
-    echo "  $0 --keep-cmssw             # Keep CMSSW, rebuild code"
-    echo "  $0 --keep-cmssw --keep-build # Keep everything, just run"
-    echo "  $0 --no-run                 # Setup only, don't run analyzer"
-}
-
-# Parse command line arguments
-while [[ $# -gt 0 ]]; do
-    case $1 in
-        --keep-cmssw)
-            KEEP_CMSSW=true
-            shift
-            ;;
-        --keep-clone)
-            KEEP_CLONE=true
-            shift
-            ;;
-        --keep-build)
-            KEEP_BUILD=true
-            shift
-            ;;
-        --skip-branch)
-            SKIP_BRANCH=true
-            shift
-            ;;
-        --no-run)
-            RUN_ANALYZER=false
-            shift
-            ;;
-        -h|--help)
-            print_usage
-            exit 0
-            ;;
-        *)
-            echo "Unknown option: $1"
-            print_usage
-            exit 1
-            ;;
-    esac
-done
-
-# =============================================================================
-# MAIN PIPELINE
-# =============================================================================
-
-echo "=== MDS-ML CMS LLP Analyzer Pipeline ==="
+echo "=== MDS-ML CMS LLP Analyzer Pipeline (No-Flags) ==="
 echo "Project Directory: ${PROJECT_DIR}"
 echo "CMSSW Base: ${CMSSW_BASE}"
 echo "CMSSW Version: ${CMSSW_VERSION}"
 echo "Target Branch: ${TARGET_BRANCH}"
 echo "Analyzer: ${ANALYZER_NAME}"
 echo ""
-echo "Pipeline mode:"
-echo "  Keep CMSSW: ${KEEP_CMSSW}"
-echo "  Keep Clone: ${KEEP_CLONE}"
-echo "  Keep Build: ${KEEP_BUILD}"
-echo "  Skip Branch: ${SKIP_BRANCH}"
-echo "  Run Analyzer: ${RUN_ANALYZER}"
+echo "Selected steps:"
+echo "  Env: true"
+echo "  CMSSW Create: ${DO_CMSSW_CREATE}"
+echo "  Clone: ${DO_CLONE}"
+echo "  Branch: ${DO_BRANCH}"
+echo "  Build: ${DO_BUILD}"
+echo "  Run: ${DO_RUN}"
 echo ""
 
-# No work directory needed - CMSSW release goes directly in main directory
+# Simple validation
+# (no mutually exclusive toggles remain)
 
-# Stage 1: Setup Environment
+# =============================================================================
+# STAGE 1: ENVIRONMENT
+# =============================================================================
+
 echo "=== Stage 1: Setting up Environment ==="
-export PROJECT_DIR
 source "${PROJECT_DIR}/scripts/setup_environment.sh"
 
-# Stage 2: Setup CMSSW (with cleanup if not keeping)
-if [[ "$KEEP_CMSSW" == "true" && -d "${CMSSW_BASE}" ]]; then
-    echo "=== Stage 2: Using existing CMSSW release ==="
-    export CMSSW_VERSION
-    export PROJECT_DIR
-    source "${PROJECT_DIR}/scripts/setup_cmssw.sh" --use-existing
-else
+# =============================================================================
+# STAGE 2: CMSSW
+# =============================================================================
+
+if [[ "${DO_CMSSW_CREATE}" == "true" ]]; then
     echo "=== Stage 2: Creating fresh CMSSW release ==="
-    # Remove existing CMSSW release if it exists
     if [[ -d "${CMSSW_BASE}" ]]; then
         echo "Removing existing CMSSW release: ${CMSSW_BASE}"
         rm -rf "${CMSSW_BASE}"
     fi
     export CMSSW_VERSION
-    export PROJECT_DIR
     source "${PROJECT_DIR}/scripts/setup_cmssw.sh"
+else
+    if [[ -d "${CMSSW_BASE}" ]]; then
+        echo "=== Stage 2: Using existing CMSSW release ==="
+        export CMSSW_VERSION
+        source "${PROJECT_DIR}/scripts/setup_cmssw.sh" --use-existing
+    else
+        echo "=== Stage 2: CMSSW not found; creating new release ==="
+        export CMSSW_VERSION
+        source "${PROJECT_DIR}/scripts/setup_cmssw.sh"
+    fi
 fi
 
-# Stage 3: Clone and Build (with cleanup if not keeping)
-REPO_PATH="${CMSSW_BASE}/src/${REPO_DIR}"
-if [[ "$KEEP_CLONE" == "true" && -d "${REPO_PATH}" ]]; then
-    echo "=== Stage 3: Using existing repository clone ==="
-    if [[ "$KEEP_BUILD" == "false" ]]; then
-        echo "Rebuilding code..."
-        source "${PROJECT_DIR}/scripts/clone_and_build.sh" --build-only
-    else
-        echo "Keeping existing build"
-        # Just verify we're in the right environment
-        cd "${REPO_PATH}"
-    fi
-else
-    echo "=== Stage 3: Fresh clone and build ==="
-    # Remove existing repository if it exists
+# =============================================================================
+# STAGE 3: REPOSITORY
+# =============================================================================
+
+if [[ "${DO_CLONE}" == "true" ]]; then
+    echo "=== Stage 3: Fresh clone ==="
     if [[ -d "${REPO_PATH}" ]]; then
         echo "Removing existing repository: ${REPO_PATH}"
         rm -rf "${REPO_PATH}"
     fi
-    
-    BUILD_FLAG=""
-    if [[ "$KEEP_BUILD" == "true" ]]; then
-        BUILD_FLAG="--skip-build"
+    source "${PROJECT_DIR}/scripts/clone_and_build.sh" --skip-build
+else
+    if [[ -d "${REPO_PATH}" ]]; then
+        echo "=== Stage 3: Using existing repository clone ==="
+        cd "${REPO_PATH}"
+    else
+        echo "=== Stage 3: Repository not found; cloning ==="
+        source "${PROJECT_DIR}/scripts/clone_and_build.sh" --skip-build
     fi
-    source "${PROJECT_DIR}/scripts/clone_and_build.sh" $BUILD_FLAG
 fi
 
-# Stage 4: Optional Branch Switch
-echo "=== Stage 4 Debug ==="
-echo "  SKIP_BRANCH: '$SKIP_BRANCH'"
-echo "  TARGET_BRANCH: '$TARGET_BRANCH'"
-echo "  Condition result: SKIP_BRANCH='$SKIP_BRANCH' == 'false' && TARGET_BRANCH='$TARGET_BRANCH' != ''"
+# =============================================================================
+# STAGE 4: BRANCH
+# =============================================================================
 
-if [[ "$SKIP_BRANCH" == "false" && -n "$TARGET_BRANCH" ]]; then
+if [[ "${DO_BRANCH}" == "true" ]]; then
     echo "=== Stage 4: Switching to branch ${TARGET_BRANCH} ==="
-    
-    # Ensure environment variables are exported for the switch script
     export TARGET_BRANCH
     export CMSSW_BASE
     export REPO_DIR
-    
+    export PROJECT_DIR
+    if [[ ! -d "${CMSSW_BASE}/src/${REPO_DIR}" ]]; then
+        echo "❌ Repository does not exist at ${CMSSW_BASE}/src/${REPO_DIR}"; exit 1
+    fi
+    cd "${CMSSW_BASE}/src"
+    eval `scramv1 runtime -sh`
     source "${PROJECT_DIR}/scripts/switch_branch.sh"
 else
     echo "=== Stage 4: Skipping branch switch ==="
-    if [[ "$SKIP_BRANCH" != "false" ]]; then
-        echo "  Reason: SKIP_BRANCH is not 'false' (value: '$SKIP_BRANCH')"
-    fi
-    if [[ -z "$TARGET_BRANCH" ]]; then
-        echo "  Reason: TARGET_BRANCH is empty or not set"
-    fi
 fi
 
-# Stage 5: Run Analyzer
-if [[ "$RUN_ANALYZER" == "true" ]]; then
-    echo "=== Stage 5: Running Analyzer ==="
+# =============================================================================
+# STAGE 5: BUILD
+# =============================================================================
+
+if [[ "${DO_BUILD}" == "true" ]]; then
+    echo "=== Stage 5: Building analyzer ==="
+    cd "${CMSSW_BASE}/src/${REPO_DIR}"
+    cd "${CMSSW_BASE}/src" && eval `scramv1 runtime -sh` && cd "${REPO_DIR}"
+    # Build using 8 cores
+    export MAKEFLAGS="-j8"
+    echo "Using MAKEFLAGS=${MAKEFLAGS}"
+    source "${PROJECT_DIR}/scripts/clone_and_build.sh" --build-only
+    if [[ $? -ne 0 ]]; then
+        echo "❌ Build failed"; exit 1
+    fi
+else
+    echo "=== Stage 5: Skipping build ==="
+fi
+
+# =============================================================================
+# STAGE 6: RUN
+# =============================================================================
+
+if [[ "${DO_RUN}" == "true" ]]; then
+    echo "=== Stage 6: Running Analyzer ==="
     source "${PROJECT_DIR}/scripts/run_analyzer.sh"
 else
-    echo "=== Setup Complete (skipping analyzer run) ==="
+    echo "=== Skipping analyzer run ==="
 fi
 
 echo ""
@@ -223,4 +174,6 @@ echo "Repository: ${CMSSW_BASE}/src/${REPO_DIR}"
 echo ""
 echo "To run the analyzer manually:"
 echo "  cd ${CMSSW_BASE}/src/${REPO_DIR}"
-echo "  ./RazorRun ${INPUT_LIST} ${ANALYZER_NAME} ${DATA_FLAG} -f=${OUTPUT_FILE} -l=${ANALYSIS_TAG}" 
+echo "  ./RazorRun ${INPUT_LIST} ${ANALYZER_NAME} ${DATA_FLAG} -f=${OUTPUT_FILE} -l=${ANALYSIS_TAG}"
+
+

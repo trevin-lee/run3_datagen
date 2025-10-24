@@ -113,24 +113,6 @@ run3_llp_analyzer/fastjet-install/
 *.raw
 *.bin
 
-# Processed data files
-data/output/
-data/processed/
-data/cache/
-data/temp/
-data/tmp/
-
-# File lists and configurations that might contain absolute paths
-data/file_lists/*.txt
-!data/file_lists/example.txt
-
-# Large analysis outputs
-*.pdf
-*.png
-*.jpg
-*.eps
-plots/
-figures/
 
 # Development & IDE
 # -----------------------------------------------------------------------------
@@ -256,3 +238,6 @@ histograms/
 docs/_build/
 docs/build/
 site/
+
+
+CMSSW_*/

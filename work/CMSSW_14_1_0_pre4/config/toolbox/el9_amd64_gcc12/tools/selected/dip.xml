@@ -1,5 +1,0 @@
-<tool name="dip" version="8693f00cc422b4a15858fcd84249acaeb07b6316-4778d17af7593171e1194c6574290222">
-  <lib name="dip"/>
-  <use name="dip-platform-dependent"/>
-  <use name="log4cplus"/>
-</tool>

@@ -1,0 +1,1 @@
+root://cmsxrootd.fnal.gov//store/group/phys_exotica/delayedjets/MergedNtuples/Run3/V1p19/MC_Summer23/v1/ggH_Hto2Sto4B_MH-125-MS-15-ctauS-0p1_TuneCP5_13p6TeV_powheg-pythia8/ggH_Hto2Sto4B_MH-125-MS-15-ctauS-0p1_TuneCP5_13p6TeV_powheg-pythia8_Job27_of_28_001.root

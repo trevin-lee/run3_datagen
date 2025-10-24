@@ -1,0 +1,1 @@
+root://cmsxrootd.fnal.gov//store/af/group/lpclonglived/displacedJetMuonNtuple/MDSNano/Run3Summer24/v2/DYto2Mu_Bin-MLL-50to120_TuneCP5_13p6TeV_powheg-pythia8/250407_214823/0009/PAT_NANO_9492.root
