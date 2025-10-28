@@ -11,20 +11,20 @@ set -e
 
 # Steps to run
 # Stage 1 (Env) always runs
-DO_CMSSW_CREATE=true  # Stage 2: If true, recreate CMSSW; if false, use existing (or create if missing)
-DO_CLONE=true         # Stage 3: Fresh clone (deletes existing if true); otherwise use existing or clone if missing
+DO_CMSSW_CREATE=false  # Stage 2: If true, recreate CMSSW; if false, use existing (or create if missing)
+DO_CLONE=false         # Stage 3: Fresh clone (deletes existing if true); otherwise use existing or clone if missing
 DO_BRANCH=false        # Stage 4: Switch to target branch
-DO_BUILD=false        # Stage 5: Build analyzer
-DO_RUN=false           # Stage 6: Run analyzer
+DO_BUILD=true        # Stage 5: Build analyzer
+DO_RUN=true           # Stage 6: Run analyzer
 
 # Analysis configuration
 export CMSSW_VERSION="CMSSW_14_1_0_pre4"
 export TARGET_BRANCH="main"
 export ANALYZER_NAME="llp_MuonSystem_CA_merge"
-export INPUT_LIST="/main/run3_datagen/data/samples/input.txt"              # Relative to project dir unless absolute
-export OUTPUT_FILE="data/MuonSystem_Tree.root"  # Relative to project dir unless absolute
+export INPUT_LIST="/uscms/home/tlee/nobackup/work/run3_datagen/data/samples/input.txt"              # Relative to project dir unless absolute
+export OUTPUT_FILE="/uscms/home/tlee/nobackup/work/run3_datagen/data/analyzer_output.root"  # Relative to project dir unless absolute
 export DATA_FLAG="-d=no"                         # "-d=no" for MC, "-d=yes" for data
-export ANALYSIS_TAG="Summer24"
+export ANALYSIS_TAG="Summer22"
 
 # Optional environment paths (leave empty to use CMSSW's ROOT)
 export ROOT_SETUP=""
