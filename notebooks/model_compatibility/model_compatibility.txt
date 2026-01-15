@@ -1,4 +1,4 @@
-Common keys (111):
+Common keys (115):
  - Old:  | New: 
  - Old: cscRechitClusterEta | New: cscRechitClusterEta
  - Old: cscRechitClusterEtaPhiSpread | New: cscRechitClusterEtaPhiSpread
@@ -50,6 +50,9 @@ Common keys (111):
  - Old: cscRechitsClusterId | New: CscRechitsClusterId
  - Old: cscRechitsEta | New: CscRechitsEta
  - Old: cscRechitsPhi | New: CscRechitsPhi
+ - Old: cscRechitsX | New: CscRechitsX
+ - Old: cscRechitsY | New: CscRechitsY
+ - Old: cscRechitsZ | New: CscRechitsZ
  - Old: dtRechitClusterEta | New: dtRechitClusterEta
  - Old: dtRechitClusterEtaPhiSpread | New: dtRechitClusterEtaPhiSpread
  - Old: dtRechitClusterEtaSpread | New: dtRechitClusterEtaSpread
@@ -107,11 +110,12 @@ Common keys (111):
  - Old: nPV | New: npv
  - Old: nTaus | New: nTaus
  - Old: runNum | New: runNum
+ - Old: tauE | New: tauE
  - Old: tauEta | New: tauEta
  - Old: tauPhi | New: tauPhi
  - Old: tauPt | New: tauPt
 
-Keys only in OLD tree (683):
+Keys only in OLD tree (679):
  - alphasWeights
  - BunchXing
  - cscRechitCluster_match_cscSegCluster_index
@@ -148,9 +152,6 @@ Keys only in OLD tree (683):
  - cscRechitsTpeak
  - cscRechitsTwire
  - cscRechitsWGroupsBX
- - cscRechitsX
- - cscRechitsY
- - cscRechitsZ
  - cscSegChamber
  - cscSegChi2
  - cscSegCluster_match_gParticle_id
@@ -778,7 +779,6 @@ Keys only in OLD tree (683):
  - tau_passMuVetoMedium
  - tau_passMuVetoTight
  - tau_puCorrPtSum
- - tauE
  - track_angle
  - track_bestVertexIndex
  - track_charge
@@ -796,7 +796,7 @@ Keys only in OLD tree (683):
  - track_Phi
  - track_Pt
 
-Keys only in NEW tree (193):
+Keys only in NEW tree (215):
  - cscRechitCluster_match_dtSeg_0p4
  - cscRechitCluster_match_gLLP
  - cscRechitCluster_match_gLLP_csc
@@ -904,6 +904,9 @@ Keys only in NEW tree (193):
  - DtRechitsClusterId
  - DtRechitsEta
  - DtRechitsPhi
+ - DtRechitsX
+ - DtRechitsY
+ - DtRechitsZ
  - evtNum
  - Flag_all
  - Flag_BadPFMuonDzFilter
@@ -920,6 +923,21 @@ Keys only in NEW tree (193):
  - gParticle_decay_vertex_x
  - gParticle_decay_vertex_y
  - gParticle_decay_vertex_z
+ - gTauE
+ - gTauEDecay
+ - gTauEta
+ - gTauHadronicDecay
+ - gTauMuDecay
+ - gTauPdgId
+ - gTauPhi
+ - gTauPt
+ - gVisTauDecayMode
+ - gVisTauE
+ - gVisTauEta
+ - gVisTauFractionOfTotalEnergy
+ - gVisTauFractionOfTotalPt
+ - gVisTauPhi
+ - gVisTauPt
  - HLT_CscCluster100_Ele5
  - HLT_CscCluster100_Mu5
  - HLT_CscCluster100_PNetTauhPFJet10_Loose
@@ -961,6 +979,8 @@ Keys only in NEW tree (193):
  - nDtRechitClusters_nocut
  - nDtRings
  - nGenParticles
+ - nGenTaus
+ - nGenVisTau
  - nGLLP
  - nLeptons
  - pileupWeight
@@ -976,6 +996,8 @@ Keys only in NEW tree (193):
  - tauDecayMode
  - tauDeltaR
  - tauDz
+ - tauFractionOfGenVisEnergy
+ - tauFractionOfGenVisPt
  - tauGenPartFlav
  - tauIdDeepTau2018v2p5VSe
  - tauIdDeepTau2018v2p5VSjet

@@ -20,9 +20,9 @@ DO_RUN=true           # Stage 6: Run analyzer
 # Analysis configuration
 export CMSSW_VERSION="CMSSW_14_1_0_pre4"
 export TARGET_BRANCH="main"
-export ANALYZER_NAME="llp_MuonSystem_CA_merge"
+export ANALYZER_NAME="llp_MuonSystem_CA_mdsnano"
 export INPUT_LIST="/uscms/home/tlee/nobackup/work/run3_datagen/data/samples/input.txt"              # Relative to project dir unless absolute
-export OUTPUT_FILE="/uscms/home/tlee/nobackup/work/run3_datagen/data/analyzer_output.root"  # Relative to project dir unless absolute
+export OUTPUT_FILE="/uscms/home/tlee/nobackup/work/run3_datagen/data/analyzer_output_mdsnano.root"  # Relative to project dir unless absolute
 export DATA_FLAG="-d=no"                         # "-d=no" for MC, "-d=yes" for data
 export ANALYSIS_TAG="Summer22"
 

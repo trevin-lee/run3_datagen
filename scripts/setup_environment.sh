@@ -15,6 +15,38 @@ else
     exit 1
 fi
 
+# Initialize VOMS proxy (optional but recommended for remote data access)
+if command -v voms-proxy-info >/dev/null 2>&1; then
+    VOMS_VO="${VOMS_VO:-cms}"
+    VOMS_VALID="${VOMS_VALID:-192:00}"
+    if ! voms-proxy-info -exists -hours 1 >/dev/null 2>&1; then
+        echo "Initializing VOMS proxy for VO: ${VOMS_VO}"
+        if [[ -n "${X509_USER_KEY_PASSPHRASE:-}" ]]; then
+            if echo -n "${X509_USER_KEY_PASSPHRASE}" | voms-proxy-init -rfc -voms "${VOMS_VO}" -valid "${VOMS_VALID}" -pwstdin >/dev/null 2>&1; then
+                echo "✓ VOMS proxy initialized"
+            else
+                echo "⚠️  Failed to initialize VOMS proxy non-interactively."
+                echo "    You may need to run this manually (will prompt for passphrase):"
+                echo "    voms-proxy-init -rfc -voms ${VOMS_VO} -valid ${VOMS_VALID}"
+            fi
+        else
+            echo "⚠️  Skipping automatic VOMS init (no X509_USER_KEY_PASSPHRASE set)."
+            echo "    To initialize manually, run:"
+            echo "    voms-proxy-init -rfc -voms ${VOMS_VO} -valid ${VOMS_VALID}"
+        fi
+    else
+        TIMELEFT="$(voms-proxy-info -timeleft 2>/dev/null || echo '')"
+        echo "✓ Existing VOMS proxy detected (time left: ${TIMELEFT}s)"
+    fi
+    # Export proxy path if available
+    PROXY_PATH="$(voms-proxy-info -path 2>/dev/null || true)"
+    if [[ -n "${PROXY_PATH}" && -f "${PROXY_PATH}" ]]; then
+        export X509_USER_PROXY="${PROXY_PATH}"
+    fi
+else
+    echo "⚠️  voms-proxy-info not found; skipping VOMS proxy setup."
+fi
+
 # Setup ROOT if specified path exists
 if [[ -n "$ROOT_SETUP" && -f "$ROOT_SETUP" ]]; then
     echo "Setting up ROOT from: $ROOT_SETUP"
